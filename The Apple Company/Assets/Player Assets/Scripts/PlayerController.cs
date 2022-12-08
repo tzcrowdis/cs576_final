@@ -73,6 +73,6 @@ public class PlayerController : MonoBehaviour
         float zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
         movement_direction = new Vector3(xdirection, 0.0f, zdirection);
 
-        character_controller.Move(movement_direction * velocity * Time.deltaTime);\
+        character_controller.Move(movement_direction * velocity * Time.deltaTime);
     }
 }
