@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector3 target;
-    float speed = 1.0f;
 
-    private Animator animation_controller;
-    private CharacterController character_controller;
-    public GameObject button;
+    public GameObject floor;
+    public Transform orientation;
     public Vector3 movement_direction;
     public float velocity;
     public int acceleration;
+
     private float turn;
-    public float vert_velocity;
     public float gravity;
+    public float vert_velocity;
     private float MAX_VEL = 1.5f;
+    private Animator animation_controller;
+    private CharacterController character_controller;
+    private float horizontal;
+    private float vertical;
+    private Bounds floor_bound;
+    private float objectWidth;
 
     // Start is called before the first frame update
     void Start()
@@ -26,29 +30,30 @@ public class PlayerController : MonoBehaviour
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
         velocity = 0.0f;
         acceleration = 2;
-        turn = 0.2f;
+        turn = 0.5f;
         vert_velocity = 0.0f;
         gravity = 2.0f;
+        floor_bound = floor.GetComponent<Collider>().bounds;
+        objectWidth = 0;// transform.GetComponent<MeshRenderer>().bounds.size.x / 2;
+    }
+
+    private void GetInput()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Turn
-        if (Input.GetKey(KeyCode.D))
-        {
-            animation_controller.SetInteger("state", 3);
-            transform.Rotate(0.0f, -turn, 0.0f);
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            animation_controller.SetInteger("state", 2);
-            transform.Rotate(0.0f, turn, 0.0f);
-        }
+        GetInput();
+
+        movement_direction = orientation.forward * vertical + orientation.right * horizontal; 
+        
+        animation_controller.SetInteger("state", 1);
         //Forwards
-        else if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            animation_controller.SetInteger("state", 1);
             velocity = Mathf.Clamp(velocity + acceleration * Time.deltaTime, 0, MAX_VEL * 2);
         }
         //Backwards
@@ -68,21 +73,6 @@ public class PlayerController : MonoBehaviour
         float zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
         movement_direction = new Vector3(xdirection, 0.0f, zdirection);
 
-        if (transform.position.y > 0.0f) // if the character starts "climbing" the terrain, drop her down
-        {
-            Vector3 lower_character = movement_direction * velocity * Time.deltaTime;
-            lower_character.y = -100f; // hack to force her down
-            character_controller.Move(lower_character);
-        }
-        else
-        {
-            character_controller.Move(movement_direction * velocity * Time.deltaTime);
-        }
-    }
-
-    void SetNewTarget(Vector3 newTarget)
-    {
-        target = newTarget;
-        transform.LookAt(target);
+        character_controller.Move(movement_direction * velocity * Time.deltaTime);\
     }
 }
