@@ -2506,7 +2506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floor: {fileID: 1997463116}
-  orientation: {fileID: 0}
+  orientation: {fileID: 1019444885}
   movement_direction: {x: 0, y: 0, z: 0}
   velocity: 0
   acceleration: 0
@@ -2543,6 +2543,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.54946214, y: 1.9408368, z: 0.33310965}
   m_Center: {x: 0.01, y: 0.99458146, z: 0.050000004}
+--- !u!4 &1019444885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57c6cd7fe422c9e4fbe08601b242cecc, type: 3}
+  m_PrefabInstance: {fileID: 62573813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1032456233
 PrefabInstance:
   m_ObjectHideFlags: 0
