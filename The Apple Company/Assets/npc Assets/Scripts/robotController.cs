@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class robotController : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class robotController : MonoBehaviour
 
     public NavMeshAgent robot;
     public Animator robot_anim;
+
+    //dialogue vars
+    public bool convo;
+    public Canvas prompt;
+    public Dialogue dialogue;
+
+    public Transform target;
+    public float turnSpeed = 10.0f;
 
     void Start()
     {
@@ -29,34 +38,75 @@ public class robotController : MonoBehaviour
             curr_dest = job1;
         else
             curr_dest = job2;
+
+        //dont start in convo
+        convo = false;
+        prompt.enabled = false;
     }
 
     void Update()
     {
-        //traverse to current job
-        robot.SetDestination(curr_dest);
-
-        //control animations and assign new job
-        if (robot.velocity.magnitude > 0)
-            robot_anim.SetBool("walking", true);
-        else
+        if (convo == false)
         {
-            robot_anim.SetBool("walking", false);
-            if (curr_time <= 0)
-                curr_time = work_time;
-        }
+            //traverse to current job
+            robot.SetDestination(curr_dest);
 
-        //working timer
-        if (curr_time > 0)
-            curr_time -= Time.deltaTime;
-
-        //job timer up assign new job
-        if (curr_time <= 0 && robot.velocity.magnitude == 0)
-        {
-            if (Random.Range(0f, 1f) <= 0.5)
-                curr_dest = job1;
+            //control animations and assign new job
+            if (robot.velocity.magnitude > 0)
+                robot_anim.SetBool("walking", true);
             else
-                curr_dest = job2;
+            {
+                robot_anim.SetBool("walking", false);
+                if (curr_time <= 0)
+                    curr_time = work_time;
+            }
+
+            //working timer
+            if (curr_time > 0)
+                curr_time -= Time.deltaTime;
+
+            //job timer up assign new job
+            if (curr_time <= 0 && robot.velocity.magnitude == 0)
+            {
+                if (Random.Range(0f, 1f) <= 0.5)
+                    curr_dest = job1;
+                else
+                    curr_dest = job2;
+            }
         }
+        else //in conversation
+        {
+            //lock movement
+            robot.SetDestination(transform.position);
+            //rotate to player (from unity api)
+            Vector3 targetDirection = target.position - transform.position;
+            float singleStep = turnSpeed * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //display prompt to start conversation
+        prompt.enabled = true;
+
+        //allow player to start convo with F
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //lock movement
+            convo = true;
+            other.GetComponent<PlayerController>().convo = true;
+            other.GetComponent<CameraController>().convo = true;
+
+            //begin dialogue
+            FindObjectOfType<DialogueManager>().startDialogue(dialogue);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //remove prompt
+        prompt.enabled = false;
     }
 }

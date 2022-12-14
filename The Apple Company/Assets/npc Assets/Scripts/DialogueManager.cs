@@ -9,6 +9,9 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
     public TextMeshProUGUI dialogueText;
     public Animator animator;
+
+    public GameObject robot;
+    public GameObject player;
     
     // Start is called before the first frame update
     void Start()
@@ -50,5 +53,8 @@ public class DialogueManager : MonoBehaviour
     {
         //end convo
         animator.SetBool("open", false);
+        robot.GetComponent<robotController>().convo = false;
+        player.GetComponent<PlayerController>().convo = false;
+        player.GetComponent<CameraController>().convo = false;
     }
 }

@@ -22,9 +22,14 @@ public class PlayerController : MonoBehaviour
     private Bounds floor_bound;
     private float objectWidth;
 
+    //variable to control conversation dynamics
+    public bool convo;
+
     // Start is called before the first frame update
     void Start()
     {
+        convo = false;
+        
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
@@ -46,33 +51,44 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        if (convo == false) //locks movement in conversation ANIMATION STILL PLAYS LOOK INTO STOPPING IT
+        {
+            GetInput();
 
-        movement_direction = orientation.forward * vertical + orientation.right * horizontal; 
-        
-        animation_controller.SetInteger("state", 1);
-        //Forwards
-        if (Input.GetKey(KeyCode.W))
-        {
-            velocity = Mathf.Clamp(velocity + acceleration * Time.deltaTime, 0, MAX_VEL * 2);
+            movement_direction = orientation.forward * vertical + orientation.right * horizontal;
+
+            animation_controller.SetInteger("state", 1);
+            //Forwards
+            if (Input.GetKey(KeyCode.W))
+            {
+                velocity = Mathf.Clamp(velocity + acceleration * Time.deltaTime, 0, MAX_VEL * 2);
+            }
+            //Backwards
+            else if (Input.GetKey(KeyCode.S))
+            {
+                animation_controller.SetInteger("state", 4);
+                velocity = Mathf.Clamp(velocity - acceleration * Time.deltaTime, -MAX_VEL / 1.5f, 0);
+            }
+            //Idle
+            else
+            {
+                animation_controller.SetInteger("state", 0);
+                velocity = Mathf.Clamp(velocity - acceleration * Time.deltaTime, 0, MAX_VEL);
+            }
+
+            float xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
+            float zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
+            movement_direction = new Vector3(xdirection, 0.0f, zdirection);
+
+            character_controller.Move(movement_direction * velocity * Time.deltaTime);
         }
-        //Backwards
-        else if (Input.GetKey(KeyCode.S))
-        {
-            animation_controller.SetInteger("state", 4);
-            velocity = Mathf.Clamp(velocity - acceleration * Time.deltaTime, -MAX_VEL / 1.5f, 0);
-        }
-        //Idle
         else
         {
-            animation_controller.SetInteger("state", 0);
-            velocity = Mathf.Clamp(velocity - acceleration * Time.deltaTime, 0, MAX_VEL);
+            //move dialogue forward
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                FindObjectOfType<DialogueManager>().DisplayNextSentence();
+            }
         }
-
-        float xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
-        float zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
-        movement_direction = new Vector3(xdirection, 0.0f, zdirection);
-
-        character_controller.Move(movement_direction * velocity * Time.deltaTime);
     }
 }
