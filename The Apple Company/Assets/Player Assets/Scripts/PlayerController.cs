@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public GameObject floor;
+    //public GameObject floor;
     public Transform orientation;
     public Vector3 movement_direction;
     public float velocity;
@@ -16,10 +16,10 @@ public class PlayerController : MonoBehaviour
     public float vert_velocity;
     private float MAX_VEL = 1.5f;
     private Animator animation_controller;
-    private CharacterController character_controller;
+    public CharacterController character_controller;
     private float horizontal;
     private float vertical;
-    private Bounds floor_bound;
+    //private Bounds floor_bound;
     private float objectWidth;
 
     //variable to control conversation dynamics
@@ -29,16 +29,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         convo = false;
+
         
         animation_controller = GetComponent<Animator>();
-        character_controller = GetComponent<CharacterController>();
+        //character_controller = GetComponent<CharacterController>();
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
         velocity = 0.0f;
         acceleration = 2;
         turn = 0.5f;
         vert_velocity = 0.0f;
         gravity = 2.0f;
-        floor_bound = floor.GetComponent<Collider>().bounds;
+        //floor_bound = floor.GetComponent<Collider>().bounds;
         objectWidth = 0;// transform.GetComponent<MeshRenderer>().bounds.size.x / 2;
     }
 
