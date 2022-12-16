@@ -25,12 +25,15 @@ public class PlayerController : MonoBehaviour
     //variable to control conversation dynamics
     public bool convo;
 
+    //jumping
+    private float jump_h;
+
     // Start is called before the first frame update
     void Start()
     {
         convo = false;
+        jump_h = 1.0f;
 
-        
         animation_controller = GetComponent<Animator>();
         //character_controller = GetComponent<CharacterController>();
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
@@ -38,7 +41,7 @@ public class PlayerController : MonoBehaviour
         acceleration = 2;
         turn = 0.5f;
         vert_velocity = 0.0f;
-        gravity = 2.0f;
+        gravity = -6.0f;
         //floor_bound = floor.GetComponent<Collider>().bounds;
         objectWidth = 0;// transform.GetComponent<MeshRenderer>().bounds.size.x / 2;
     }
@@ -82,6 +85,15 @@ public class PlayerController : MonoBehaviour
             movement_direction = new Vector3(xdirection, 0.0f, zdirection);
 
             character_controller.Move(movement_direction * velocity * Time.deltaTime);
+
+            //jump
+            //source: https://gamedevbeginner.com/how-to-jump-in-unity-with-or-without-physics/#character_controller_jump
+            if (character_controller.isGrounded && Input.GetKeyDown(KeyCode.Space))
+            {
+                vert_velocity = Mathf.Sqrt(jump_h * -2f * gravity);
+            }
+            vert_velocity += gravity * Time.deltaTime;
+            character_controller.Move(new Vector3(0, vert_velocity, 0) * Time.deltaTime);
         }
         else
         {
