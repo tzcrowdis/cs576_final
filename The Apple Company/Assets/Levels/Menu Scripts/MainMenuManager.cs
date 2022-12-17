@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
 
     void startGame()
     {
-        SceneManager.LoadScene("start_room", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 
     void levelMenu()
@@ -45,17 +45,17 @@ public class MainMenuManager : MonoBehaviour
 
     void startOne()
     {
-        SceneManager.LoadScene("start_room", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 
     void startTwo()
     {
-        //dont have yet
+        SceneManager.LoadScene("Level2", LoadSceneMode.Single);
     }
 
     void startThree()
     {
-        //dont have yet
+        SceneManager.LoadScene("Level3", LoadSceneMode.Single);
     }
 
     void mainMenu()

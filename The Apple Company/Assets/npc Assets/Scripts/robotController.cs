@@ -98,6 +98,9 @@ public class robotController : MonoBehaviour
             //lock movement
             convo = true;
             other.GetComponent<PlayerController>().convo = true;
+
+            //rotate towards specific robot
+            other.GetComponent<CameraController>().target = transform;
             other.GetComponent<CameraController>().convo = true;
 
             //begin dialogue
