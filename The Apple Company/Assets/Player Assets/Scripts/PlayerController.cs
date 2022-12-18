@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     //variable to control conversation dynamics
     public bool convo;
+    public Canvas tab_menu;
 
     //jumping
     private float jump_h;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         convo = false;
         jump_h = 1.0f;
+        tab_menu.enabled = false;
 
         animation_controller = GetComponent<Animator>();
         //character_controller = GetComponent<CharacterController>();
@@ -88,12 +91,28 @@ public class PlayerController : MonoBehaviour
 
             //jump
             //source: https://gamedevbeginner.com/how-to-jump-in-unity-with-or-without-physics/#character_controller_jump
+            if (character_controller.isGrounded && vert_velocity < 0)
+            {
+                vert_velocity = gravity * Time.deltaTime;
+            }
+
+            character_controller.minMoveDistance = 0f;
+
             if (character_controller.isGrounded && Input.GetKeyDown(KeyCode.Space))
             {
                 vert_velocity = Mathf.Sqrt(jump_h * -2f * gravity);
             }
             vert_velocity += gravity * Time.deltaTime;
             character_controller.Move(new Vector3(0, vert_velocity, 0) * Time.deltaTime);
+
+            //handle objective menu
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (tab_menu.enabled == false)
+                    tab_menu.enabled = true;
+                else
+                    tab_menu.enabled = false;
+            }
         }
         else
         {

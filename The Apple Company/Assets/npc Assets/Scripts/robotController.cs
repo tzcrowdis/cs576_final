@@ -76,7 +76,8 @@ public class robotController : MonoBehaviour
         }
         else //in conversation
         {
-            //lock movement
+            //lock movement and anim
+            robot_anim.SetBool("walking", false);
             robot.SetDestination(transform.position);
             //rotate to player (from unity api)
             Vector3 targetDirection = target.position - transform.position;
@@ -97,6 +98,9 @@ public class robotController : MonoBehaviour
             //lock movement
             convo = true;
             other.GetComponent<PlayerController>().convo = true;
+
+            //rotate towards specific robot
+            other.GetComponent<CameraController>().target = transform;
             other.GetComponent<CameraController>().convo = true;
 
             //begin dialogue
