@@ -11,6 +11,9 @@ public class turret : MonoBehaviour
     private Vector3 proj_str_pos;
     private Vector3 shoot_dir;
     private bool player_acc;
+
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +35,7 @@ public class turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject player = GameObject.find("player");  // need player object in scene
+        //GameObject player = GameObject.find("player");  // need player object in scene
 
         if(player == null)
         {
@@ -46,11 +49,11 @@ public class turret : MonoBehaviour
         dir_tur_to_player = player_centroid - turret_centroid;
         dir_tur_to_player.Normalize();
 
-        RayCast hit;
+        RaycastHit hit;
         
 
         // making the turret rotate in the direction of the player
-        if(Physics.RayCast(turret_centroid, dir_tur_to_player, out hit, Mathf.Infinity))
+        if(Physics.Raycast(turret_centroid, dir_tur_to_player, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject == player)
             {
@@ -62,7 +65,7 @@ public class turret : MonoBehaviour
                 while (delta_pos > 20)
                 {
                     float dist = Vector3.Distance(future_target_pos, proj_str_pos) - 1.1f;
-                    float ahead_time = distance / projectile_vel;
+                    float ahead_time = dist / projectile_vel;
                     Vector3 last_pos = future_target_pos;
                     future_target_pos = player_centroid + ahead_time * player.GetComponent<PlayerController>().velocity * player.GetComponent<PlayerController>().movement_direction;  
                     delta_pos = Vector3.Distance(future_target_pos, last_pos);
@@ -72,7 +75,7 @@ public class turret : MonoBehaviour
                 shoot_dir.Normalize();
 
                 float rotate_angle = Mathf.Rad2Deg * Mathf.Atan2(shoot_dir.x, shoot_dir.z);
-                transform.eulerAngles = new Victor3(0.0f, rotate_angle, 0.0f);
+                transform.eulerAngles = new Vector3(0.0f, rotate_angle, 0.0f);
                 Vector3 curr_tur_dir = new Vector3(Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.y), 1.1f, Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.y));
                 proj_str_pos = transform.position + 1.1f * curr_tur_dir;
                 player_acc = true;

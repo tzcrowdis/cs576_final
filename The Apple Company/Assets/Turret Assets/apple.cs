@@ -32,7 +32,7 @@ public class apple : MonoBehaviour
         // if it hits the player
         if(hitter.gameObject.tag == "character")
         {
-            GameObject.Find("player").GetComponent<PlayerController>().num_lives -= 1;
+            //GameObject.Find("player").GetComponent<PlayerController>().num_lives -= 1;
             Destroy(transform.gameObject);
         }
         else
