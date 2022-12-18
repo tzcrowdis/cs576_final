@@ -19,7 +19,7 @@ public class apple : MonoBehaviour
     {
 
         // apple destroyed if it exists beyond 5 seconds
-        if(Time.time - start_time > 5.0f)
+        if(Time.time - start_time > 10.0f)
         {
             Destroy(transform.gameObject);
         }
@@ -29,15 +29,7 @@ public class apple : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitter)
     {
-        // if it hits the player
-        if(hitter.gameObject.tag == "character")
-        {
-            //GameObject.Find("player").GetComponent<PlayerController>().num_lives -= 1;
+        if (hitter.gameObject.tag == "glass" || hitter.gameObject.tag == "character")
             Destroy(transform.gameObject);
-        }
-        else
-        {
-            Destroy(transform.gameObject);
-        }
     }
 }
