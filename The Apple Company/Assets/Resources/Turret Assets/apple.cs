@@ -29,19 +29,7 @@ public class apple : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitter)
     {
-<<<<<<< HEAD:The Apple Company/Assets/Resources/Turret Assets/apple.cs
-        Destroy(transform.gameObject);
-=======
-        // if it hits the player
-        if(hitter.gameObject.tag == "character")
-        {
-            //GameObject.Find("player").GetComponent<PlayerController>().num_lives -= 1;
+        if (hitter.gameObject.tag == "glass" || hitter.gameObject.tag == "character")
             Destroy(transform.gameObject);
-        }
-        else
-        {
-            Destroy(transform.gameObject);
-        }
->>>>>>> a39b9c8396c694715976d5a576865277ef390d6b:The Apple Company/Assets/Turret Assets/apple.cs
     }
 }
