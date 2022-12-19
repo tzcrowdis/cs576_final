@@ -27448,8 +27448,8 @@ MonoBehaviour:
     - Whether you got the answer right or wrong we still need you!
     - When you're in a safe place remember to press [TAB] to review the object and
       useful rules.
-    - Now this time we need you to figure out if, NOT (FRESH OR ROTTEN) AND (ROTTEN
-      OR ROTTEN AND FRESH), is ROTTEN or FRESH.
+    - Now this time we need you to figure out if, (FRESH AND ROTTEN) OR (ROTTEN OR
+      FRESH), is ROTTEN or FRESH.
     - Good luck out there!
   target: {fileID: 1019444885}
   turnSpeed: 7.5

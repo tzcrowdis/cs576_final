@@ -19087,7 +19087,7 @@ MonoBehaviour:
   dialogue:
     name: broken bot
     sentences:
-    - FRESH AND ROTTEN is FRESH!
+    - ALL BATCHES are FRESH
   target: {fileID: 1019444885}
   turnSpeed: 10
 --- !u!195 &1362834221
@@ -29401,20 +29401,9 @@ MonoBehaviour:
   dialogue:
     name: boss
     sentences:
-    - Welcome to your first day of work at The Apple Company.
-    - Your job is to determine if a batch of apples is FRESH or ROTTEN.
-    - There are a couple of basic rules you need to keep in mind.
-    - If a batch is NOT FRESH then it is ROTTEN. Vice versa, if a batch is NOT ROTTEN
-      then it's FRESH.
-    - 'Combining two batches: FRESH AND FRESH is FRESH, FRESH AND ROTTEN is ROTTEN,
-      ROTTEN AND ROTTEN is ROTTEN.'
-    - 'Taking two batches together OR seperate: FRESH OR FRESH is FRESH, FRESH OR
-      ROTTEN is FRESH, ROTTEN OR ROTTEN is ROTTEN.'
-    - You can always review these basic rules by checking your objective [TAB].
-    - Your first mission is to decide whether, (FRESH AND ROTTEN) OR (ROTTEN OR FRESH),
-      is FRESH or ROTTEN.
-    - Take the teleporter behind you. Once you arrive at the destination leave in
-      the teleporter corresponding to your evaluation.
+    - Congratulations on getting this far! Now for your final task.
+    - Determine if NOT (FRESH OR ROTTEN) AND (ROTTEN OR ROTTEN AND FRESH) is ROTTEN
+      or FRESH.
   target: {fileID: 1019444885}
   turnSpeed: 7.5
 --- !u!95 &1918183428 stripped
@@ -30163,7 +30152,7 @@ MonoBehaviour:
   dialogue:
     name: broken bot
     sentences:
-    - FRESH AND ROTTEN is FRESH!
+    - ROTTEN OR ROTTEN AND ROTTEN... is FRESH!
   target: {fileID: 1019444885}
   turnSpeed: 10
 --- !u!95 &1923781249 stripped

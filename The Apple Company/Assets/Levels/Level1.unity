@@ -1493,7 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b42d44d35d14e42ad95c2605f1f368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1042819281}
+  destination: {fileID: 102680549}
   subject: {fileID: 1019444885}
   countdown: {fileID: 584620380}
   three: {fileID: 200018494}
@@ -15266,7 +15266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b42d44d35d14e42ad95c2605f1f368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 102680549}
+  destination: {fileID: 1042819281}
   subject: {fileID: 1019444885}
   countdown: {fileID: 584620380}
   three: {fileID: 200018494}
@@ -18562,8 +18562,8 @@ MonoBehaviour:
     - 'Taking two batches together OR seperate: FRESH OR FRESH is FRESH, FRESH OR
       ROTTEN is FRESH, ROTTEN OR ROTTEN is ROTTEN.'
     - You can always review these basic rules by checking your objective [TAB].
-    - Your first mission is to decide whether, (FRESH AND ROTTEN) OR (ROTTEN OR FRESH),
-      is FRESH or ROTTEN.
+    - Your first mission will be simple. Decide whether, NOT (ROTTEN OR FRESH), is
+      FRESH or ROTTEN.
     - Take the teleporter behind you. Once you arrive at the destination leave in
       the teleporter corresponding to your evaluation.
   target: {fileID: 1019444885}
