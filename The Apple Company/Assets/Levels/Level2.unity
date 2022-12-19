@@ -4512,7 +4512,7 @@ MonoBehaviour:
   two: {fileID: 463506754}
   one: {fileID: 839875786}
   end: 1
-  curr_level: 1
+  curr_level: 2
 --- !u!1001 &523519729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12290,7 +12290,7 @@ MonoBehaviour:
   two: {fileID: 463506754}
   one: {fileID: 839875786}
   end: 1
-  curr_level: 1
+  curr_level: 2
 --- !u!1001 &842935729
 PrefabInstance:
   m_ObjectHideFlags: 0

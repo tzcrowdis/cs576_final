@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float velocity;
     public int acceleration;
 
-    private float turn;
+    //private float turn;
     public float gravity;
     public float vert_velocity;
     private float MAX_VEL = 1.5f;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
     //private Bounds floor_bound;
-    private float objectWidth;
+    //private float objectWidth;
 
     //variable to control conversation dynamics
     public bool convo;
@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
         velocity = 0.0f;
         acceleration = 2;
-        turn = 0.5f;
+        //turn = 0.5f;
         vert_velocity = 0.0f;
         gravity = -6.0f;
         //floor_bound = floor.GetComponent<Collider>().bounds;
-        objectWidth = 0;// transform.GetComponent<MeshRenderer>().bounds.size.x / 2;
+        //objectWidth = 0;// transform.GetComponent<MeshRenderer>().bounds.size.x / 2;
     }
 
     private void GetInput()
