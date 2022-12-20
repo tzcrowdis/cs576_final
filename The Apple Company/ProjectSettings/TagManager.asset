@@ -6,6 +6,7 @@ TagManager:
   tags:
   - turret
   - glass
+  - hit
   layers:
   - Default
   - TransparentFX

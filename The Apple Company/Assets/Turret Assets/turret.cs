@@ -1,3 +1,5 @@
+// referenced assignment 3
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +16,7 @@ public class turret : MonoBehaviour
 
     void Start()
     {
-        //projectile = (GameObject)Resources.Load("Turret Assets/Apple/Prefab/Apple", typeof(GameObject));
-
+        // if apple not present
         if (projectile == null)
             Debug.LogError("Apple prefab not found");
 
@@ -31,18 +32,22 @@ public class turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //finds the player in scene
         GameObject player = GameObject.Find("PlayerModel");
 
         if (player == null)
             Debug.LogError("Player not found.");
 
-        
+        //getting the centroids of player and turret
         Vector3 player_center = player.GetComponent<Collider>().bounds.center;
         Vector3 tur_center = GetComponent<Collider>().bounds.center;
         Vector3 aim = new Vector3(player_center.x, player_center.y + 0.7f, player_center.z);
         dir_tur_player = aim - tur_center;
         dir_tur_player.Normalize();
 
+
+        // if the player is within the range of the raycast
         RaycastHit hit;
         if (Physics.Raycast(tur_center, dir_tur_player, out hit, Mathf.Infinity))
         {
@@ -60,6 +65,8 @@ public class turret : MonoBehaviour
                 player_acc = false;
         }
     }
+
+    // function to launch the apple
 
     private IEnumerator Attack()
     {

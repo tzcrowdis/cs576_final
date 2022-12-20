@@ -1,3 +1,6 @@
+// referenced Unity forum for collision queries
+// referenced assignment 3 of the course
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,18 +21,22 @@ public class apple : MonoBehaviour
     void Update()
     {
 
-        // apple destroyed if it exists beyond 5 seconds
+        // apple destroyed if it exists beyond 10 seconds
         if(Time.time - start_time > 10.0f)
         {
             Destroy(transform.gameObject);
         }
 
+        // apple's movement
         transform.position = transform.position + velocity * direction * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider hitter)
+    // destroying the apple if it hits any object in the scene
+    private void OnTriggerEnter(Collider other)
     {
-        if (hitter.gameObject.tag == "glass" || hitter.gameObject.tag == "character")
+        if(other.gameObject.tag == "hit")
+        {
             Destroy(transform.gameObject);
+        }
     }
 }
